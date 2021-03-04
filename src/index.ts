@@ -4,51 +4,42 @@ import {OpenAISearch} from "./interfaces/OpenAISearch";
 
 class OpenAI {
 
-    openApiURL = 'https://api.openai.com/v1';
+    _axios;
 
     constructor(public apiKey: string) {
+
+        this._axios = axios.create({
+            baseURL: 'https://api.openai.com/v1',
+            headers: {
+                authorization: `Bearer ${apiKey}`
+            }
+        });
     }
 
     getEngines(): AxiosPromise {
 
-        return axios.get(`${this.openApiURL}/engines`, {
-            headers: {
-                authorization: `Bearer ${this.apiKey}`
-            }
-        });
+        return this._axios.get(`engines`);
 
     }
 
     getEngine(id: string): AxiosPromise {
 
-        return axios.get(`${this.openApiURL}/engines/${id}`, {
-            headers: {
-                authorization: `Bearer ${this.apiKey}`
-            }
-        });
+        return this._axios.get(`engines/${id}`);
 
     }
 
     completion(engine: string, configuration: OpenAICompletion): AxiosPromise {
 
-        return axios.post(`${this.openApiURL}/engines/${engine}/completions`, configuration, {
-            headers: {
-                authorization: `Bearer ${this.apiKey}`
-            }
-        });
+        return this._axios.post(`engines/${engine}/completions`, configuration);
 
     }
 
     search(engine: string, configuration: OpenAISearch): AxiosPromise {
 
-        return axios.post(`${this.openApiURL}/engines/${engine}/search`, configuration, {
-            headers: {
-                authorization: `Bearer ${this.apiKey}`
-            }
-        });
+        return this._axios.post(`engines/${engine}/search`, configuration);
 
     }
 
 }
 
-export default OpenAI;
+export {OpenAI}
