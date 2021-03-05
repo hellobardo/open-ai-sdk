@@ -1,19 +1,34 @@
 import axios, {AxiosPromise} from "axios";
 import {OpenAICompletion} from "./interfaces/OpenAICompletion"
 import {OpenAISearch} from "./interfaces/OpenAISearch";
+import {OpenAIHeaders} from "./interfaces/OpenAIHeaders";
+import {OpenAIHeadersConfiguration} from "./interfaces/OpenAIHeadersConfiguration";
 
 class OpenAI {
 
     _axios;
 
-    constructor(public apiKey: string) {
+    constructor(public apiKey: string, public organizationKey?: string) {
 
         this._axios = axios.create({
             baseURL: 'https://api.openai.com/v1',
-            headers: {
-                authorization: `Bearer ${apiKey}`
-            }
+            headers: this.buildHeaders({authorization: apiKey, organization: organizationKey})
         });
+    }
+
+    private buildHeaders (headers: OpenAIHeadersConfiguration) : OpenAIHeaders {
+
+        if (!! headers.organization) {
+            return {
+                'Authorization': `Bearer ${headers.authorization}`,
+                'OpenAI-Organization': headers.organization
+            }
+        }
+
+        return {
+            'Authorization': `Bearer ${headers.authorization}`,
+        }
+
     }
 
     getEngines(): AxiosPromise {

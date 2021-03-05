@@ -6,15 +6,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OpenAI = void 0;
 var axios_1 = __importDefault(require("axios"));
 var OpenAI = /** @class */ (function () {
-    function OpenAI(apiKey) {
+    function OpenAI(apiKey, organizationKey) {
         this.apiKey = apiKey;
+        this.organizationKey = organizationKey;
         this._axios = axios_1.default.create({
             baseURL: 'https://api.openai.com/v1',
-            headers: {
-                authorization: "Bearer " + apiKey
-            }
+            headers: this.buildHeaders({ authorization: apiKey, organization: organizationKey })
         });
     }
+    OpenAI.prototype.buildHeaders = function (headers) {
+        if (!!headers.organization) {
+            return {
+                'Authorization': "Bearer " + headers.authorization,
+                'OpenAI-Organization': headers.organization
+            };
+        }
+        return {
+            'Authorization': "Bearer " + headers.authorization,
+        };
+    };
     OpenAI.prototype.getEngines = function () {
         return this._axios.get("engines");
     };
