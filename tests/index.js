@@ -6,7 +6,7 @@ describe("Completion", function () {
     it("should return a completion", function (done) {
 
         this.timeout(30000);
-        const oi = new OpenAI('sk-XdZ7V98PC6ZelW4qUfDWIhTHou3yuktumQxCIB8C')
+        const oi = new OpenAI('YOUR_API_KEY')
         oi.completion('davinci', {
             prompt    : 'This a test ...',
             max_tokens: 5
@@ -25,7 +25,7 @@ describe("Search", function () {
     it("should return a search", function (done) {
 
         this.timeout(30000);
-        const oi = new OpenAI('sk-XdZ7V98PC6ZelW4qUfDWIhTHou3yuktumQxCIB8C')
+        const oi = new OpenAI('YOUR_API_KEY')
         oi.search('davinci', {
             documents: [
                 "White House",
@@ -48,7 +48,7 @@ describe("Engines", function () {
     it("should return a list of engines", function (done) {
 
         this.timeout(30000);
-        const oi = new OpenAI('sk-XdZ7V98PC6ZelW4qUfDWIhTHou3yuktumQxCIB8C')
+        const oi = new OpenAI('YOUR_API_KEY')
         oi.getEngines()
             .then(response => {
                 done();
@@ -62,7 +62,7 @@ describe("Engines", function () {
     it("should return a single engine", function (done) {
 
         this.timeout(30000);
-        const oi = new OpenAI('sk-XdZ7V98PC6ZelW4qUfDWIhTHou3yuktumQxCIB8C')
+        const oi = new OpenAI('YOUR_API_KEY')
         oi.getEngine('ada')
             .then(response => {
                 done();
