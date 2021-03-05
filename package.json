@@ -1,8 +1,8 @@
 {
   "name": "@hellobardo/open-ai-sdk",
-  "version": "1.0.4",
-  "description": "",
-  "main": "src/index.js",
+  "version": "1.0.5",
+  "description": "An Open AI API wrapper built in Typescript",
+  "main": "index.js",
   "scripts": {
     "dev": "tsc -w",
     "test": "mocha tests/*"
@@ -11,9 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/hellobardo/open-ai-sdk.git"
   },
-  "keywords": ["open ai", "openai"],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["open ai", "openai", "node"],
+  "author": "Gustavo Hekel",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/hellobardo/open-ai-sdk/issues"
   },
